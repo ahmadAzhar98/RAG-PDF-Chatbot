@@ -15,23 +15,6 @@ class QuestionRequest(BaseModel):
     highlight: bool = False
     highlighted_pdf_path: Optional[str] = None 
 
-
-
-# def find_best_context_for_highlighting(question, contexts):
-#     best_context = contexts[0]  # fallback
-#     best_score = 0
-    
-#     for context in contexts:
-#         # Score based on how well context matches the question
-#         score = fuzz.partial_ratio(question.lower(), context.lower())
-#         if score > best_score:
-#             best_score = score
-#             best_context = context
-    
-#     return best_context
-
-
-
 @app.post("/ask")
 def ask_question(request: QuestionRequest):
     result = answer_question(request.question, request.pdf_path)
