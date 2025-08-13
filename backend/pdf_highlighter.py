@@ -1,22 +1,9 @@
 import fitz  
 from rapidfuzz import fuzz
-
-# def find_best_match(answer: str, page, threshold: int = 85):
-#     """
-#     Search a page for a block of text that fuzzily matches the answer.
-#     Returns the bounding box (Rect) if found.
-#     """
-#     blocks = page.get_text("blocks")  # (x0, y0, x1, y1, text, ...)
-#     for block in blocks:
-#         x0, y0, x1, y1, text, *_ = block
-#         score = fuzz.partial_ratio(answer.lower(), text.lower())
-#         if score >= threshold:
-#             return fitz.Rect(x0, y0, x1, y1)
-#     return None
-
 import re
 from langchain.schema import Document
 from typing import List
+
 
 def highlight_chunks_in_pdf(documents: List[Document], output_path: str = None):
     """
