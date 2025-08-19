@@ -6,8 +6,15 @@ from pydantic import BaseModel
 from fastapi import FastAPI
 from typing import Optional
 from rapidfuzz import fuzz
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], allow_credentials=True,
+    allow_methods=["*"], allow_headers=["*"],
+)
 
 class QuestionRequest(BaseModel):
     question: str
@@ -18,8 +25,6 @@ class QuestionRequest(BaseModel):
 @app.post("/ask")
 def ask_question(request: QuestionRequest):
     result = answer_question(request.question, request.pdf_path)
-    # best_context = find_best_context_for_highlighting(request.question, result["contexts"])    
-
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
         highlighted_path = tmp.name
     
@@ -27,7 +32,6 @@ def ask_question(request: QuestionRequest):
         documents=result["documents"],
         output_path=highlighted_path
     )
-    
     if success:
         result["highlighted_pdf"] = highlighted_path
     else:
