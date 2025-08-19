@@ -1,4 +1,4 @@
-from pdf_highlighter import highlight_chunks_in_pdf
+from .pdf_highlighter import highlight_chunks_in_pdf
 import tempfile
 import os
 from rag.rag_engine import answer_question
