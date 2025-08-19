@@ -6,9 +6,6 @@ from typing import List
 
 
 def highlight_chunks_in_pdf(documents: List[Document], output_path: str = None):
-    """
-    Highlight chunks in PDF and save to specified output path
-    """
     if not documents:
         print("No documents provided. Aborting.")
         return False
@@ -40,7 +37,9 @@ def highlight_chunks_in_pdf(documents: List[Document], output_path: str = None):
             matches = page.search_for(normalized_text)
             
             for match in matches:
-                page.add_highlight_annot(match)
+                highlight = page.add_highlight_annot(match)
+                highlight.set_colors(stroke=(1, 0, 0), fill=(1, 0, 0))
+                highlight.update()
         
         doc.save(output_path)
         doc.close()
