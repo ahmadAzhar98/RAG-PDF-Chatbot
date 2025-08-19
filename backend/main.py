@@ -1,7 +1,7 @@
 from .pdf_highlighter import highlight_chunks_in_pdf
 import tempfile
 import os
-from rag.rag_engine import answer_question
+from .rag.rag_engine import answer_question
 from pydantic import BaseModel
 from fastapi import FastAPI
 from typing import Optional
